@@ -10,6 +10,12 @@ interface DropCardProps {
   onDelete: (id: string) => void;
 }
 
+function getCompanyName(name: string) {
+  const separatorIndex = name.indexOf(" - ");
+
+  return separatorIndex === -1 ? name : name.slice(separatorIndex + 3);
+}
+
 export function DropCard({ drop, onToggleDone, onDelete }: DropCardProps) {
   const {
     attributes,
@@ -53,7 +59,7 @@ export function DropCard({ drop, onToggleDone, onDelete }: DropCardProps) {
       </button>
 
       <div className={cn("flex-1 min-w-0", drop.done && "line-through")}>
-        <p className="font-medium truncate">{drop.name}</p>
+        <p className="font-medium truncate">{getCompanyName(drop.name)}</p>
         <p className="text-sm text-muted-foreground truncate">{drop.address}</p>
         <p className="text-sm text-muted-foreground flex items-center gap-1">
           <span>{drop.postcode}</span>
